@@ -13,7 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    @Bean
+   /* @Bean
     InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         UserDetails userDetails = User.withDefaultPasswordEncoder()
                 .username("vinayak")
@@ -21,7 +21,7 @@ public class SecurityConfig {
                 .roles("ADMIN")
                 .build();
         return new InMemoryUserDetailsManager(userDetails);
-    }
+    }*/
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**", "/api/**"))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**").permitAll()
-                        //.requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/api/**").permitAll()
                         .anyRequest().authenticated()
                 ).headers((headers) -> headers.disable())
                 .httpBasic(Customizer.withDefaults())

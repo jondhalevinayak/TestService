@@ -15,6 +15,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.sql.DataSource;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 
 @SpringBootApplication
@@ -29,8 +32,10 @@ public class TestSeviceApplication {
     @Bean
     CommandLineRunner commandLineRunner(BookRepository bookRepository, UserRepository userRepository) {
         return args -> {
-            bookRepository.save(Book.builder().title("Spring in action").pages(100).author("Vinayak").build());
-            bookRepository.save(Book.builder().title("Kafka details").pages(200).author("Pooja").build());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = dateFormat.parse(dateFormat.format(new Date()));
+            bookRepository.save(Book.builder().title("Spring in action").pages(100).author("Vinayak").createTs(date).build());
+            bookRepository.save(Book.builder().title("Kafka details").pages(200).author("Pooja").createTs(date).build());
 
             Address address1 = Address.builder().addtressId(1).sreet1("Street one").street2("Steert two").build();
             HashSet<Address> set = new HashSet<>();

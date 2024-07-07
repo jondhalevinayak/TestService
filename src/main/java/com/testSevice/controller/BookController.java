@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,11 @@ public class BookController {
 
     @GetMapping("/books")
     public ResponseEntity<List<Book>> getAllBooks() {
-        return new ResponseEntity<>(bookRepository.findAll(), HttpStatus.OK);
+        List<Book> bookList = bookRepository.findAll();
+        for (Book book : bookList) {
+            book.setCreateTs(book.getCreateTs());
+        }
+        return new ResponseEntity<>(bookList, HttpStatus.OK);
     }
 
     @PostMapping("/book")
