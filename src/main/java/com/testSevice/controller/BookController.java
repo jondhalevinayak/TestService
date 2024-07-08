@@ -22,16 +22,13 @@ public class BookController {
     @GetMapping("/books")
     public ResponseEntity<List<Book>> getAllBooks() {
         List<Book> bookList = bookRepository.findAll();
-        for (Book book : bookList) {
-            book.setCreateTs(book.getCreateTs());
-        }
         return new ResponseEntity<>(bookList, HttpStatus.OK);
     }
 
     @PostMapping("/book")
     public ResponseEntity<HttpStatus> saveBook(@RequestBody Book book) {
         bookRepository.save(book);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/book")

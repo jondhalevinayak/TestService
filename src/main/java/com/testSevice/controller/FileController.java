@@ -6,10 +6,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.net.http.HttpHeaders;
 import java.util.ArrayList;
 import java.util.Optional;
 
