@@ -2,11 +2,11 @@ package com.testSevice.controller;
 
 import com.testSevice.model.Book;
 import com.testSevice.repository.BookRepository;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 @RestController
@@ -21,12 +21,12 @@ public class BookController {
 
     @GetMapping("/books")
     public ResponseEntity<List<Book>> getAllBooks() {
-        List<Book> bookList = bookRepository.findAll();
+        List<Book> bookList = bookRepository.getAllBooks();
         return new ResponseEntity<>(bookList, HttpStatus.OK);
     }
 
     @PostMapping("/book")
-    public ResponseEntity<HttpStatus> saveBook(@RequestBody Book book) {
+    public ResponseEntity<HttpStatus> saveBook(@RequestBody @Valid Book book) {
         bookRepository.save(book);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -42,4 +42,12 @@ public class BookController {
         bookRepository.deleteById(bookId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/book/{id}")
+    public ResponseEntity<Book> getBookById(@PathVariable int id) {
+        Book book = bookRepository.getBookById(id);
+        return new ResponseEntity(book, HttpStatus.OK);
+    }
+
+
 }
